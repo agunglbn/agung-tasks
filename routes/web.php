@@ -1,0 +1,31 @@
+<?php
+
+use App\Http\Controllers\Dashbord;
+use App\Http\Controllers\LoginController;
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/', function () {
+    return view('/login');
+    // return view('welcome');
+});
+Route::get('/dashbord', [Dashbord::class, 'dasbord'])->name('dasbord')->middleware('auth');
+Route::get('/tasks', [Dashbord::class, 'tasks'])->name('tasks')->middleware('auth');
+Route::post('/addtasks', [Dashbord::class, 'addtasks'])->name('addtasks')->middleware('auth');;
+Route::delete('/delete_post/{id}', [Dashbord::class, 'delete_post'])->name('delete_post')->middleware('auth');;
+
+Route::get('/login', [LoginController::class, 'login'])->name('login');
+Route::post('/loginproses', [LoginController::class, 'loginproses'])->name('loginproses');
+Route::get('/register', [LoginController::class, 'register'])->name('register');
+Route::post('/registeruser', [LoginController::class, 'registeruser'])->name('registeruser');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
